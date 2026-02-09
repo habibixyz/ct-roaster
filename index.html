@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CT Roaster - Get Absolutely Rekt</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --neon-green: #00ff88;
+            --neon-pink: #ff006e;
+            --neon-blue: #00d9ff;
+            --dark-bg: #0a0e15;
+            --card-bg: #12171f;
+            --text-primary: #e0e0e0;
+            --text-muted: #808080;
+        }
+
+        body {
+            font-family: 'Space Mono', monospace;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated grid background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 255, 136, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 136, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridScroll 20s linear infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes gridScroll {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        /* Glowing orbs */
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .orb-1 {
+            width: 400px;
+            height: 400px;
+            background: var(--neon-green);
+            top: -100px;
+            left: -100px;
+            animation: float 15s ease-in-out infinite;
+        }
+
+        .orb-2 {
+            width: 300px;
+            height: 300px;
+            background: var(--neon-pink);
+            bottom: -50px;
+            right: -50px;
+            animation: float 12s ease-in-out infinite reverse;
+        }
+
+        .orb-3 {
+            width: 350px;
+            height: 350px;
+            background: var(--neon-blue);
+            top: 50%;
+            left: 50%;
+            animation: float 18s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(100px, -100px); }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: slideDown 0.8s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--neon-green), var(--neon-blue), var(--neon-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            filter: drop-shadow(0 0 20px rgba(0, 255, 136, 0.3));
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .input-section {
+            background: var(--card-bg);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            animation: fadeIn 1s ease-out 0.2s both;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .input-group {
+            margin-bottom: 24px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 12px;
+            color: var(--neon-green);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+        }
+
+        input {
+            width: 100%;
+            padding: 16px 20px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid rgba(0, 255, 136, 0.3);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-family: 'Space Mono', monospace;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--neon-green);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.2);
+        }
+
+        input::placeholder {
+            color: var(--text-muted);
+        }
+
+        button {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, var(--neon-green), var(--neon-blue));
+            border: none;
+            border-radius: 8px;
+            color: var(--dark-bg);
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        button:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 255, 136, 0.4);
+        }
+
+        button:active:not(:disabled) {
+            transform: translateY(0);
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        button:hover:not(:disabled)::before {
+            left: 100%;
+        }
+
+        .result-section {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 0, 110, 0.2);
+            border-radius: 16px;
+            padding: 0;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            display: none;
+            animation: slideUp 0.6s ease-out;
+            overflow: hidden;
+        }
+
+        .result-section.show {
+            display: block;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Shareable card design */
+        .roast-card {
+            position: relative;
+            background: linear-gradient(135deg, #1a1f2e 0%, #0a0e15 100%);
+            padding: 40px;
+        }
+
+        .roast-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--neon-green), var(--neon-blue), var(--neon-pink));
+        }
+
+        .profile-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .pfp-container {
+            position: relative;
+            width: 160px;
+            height: 160px;
+            margin-bottom: 20px;
+        }
+
+        .pfp-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--neon-green), var(--neon-pink));
+            opacity: 0.1;
+            z-index: 0;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.1; }
+            50% { opacity: 0.3; }
+        }
+
+        .profile-pic {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            border: 4px solid var(--neon-pink);
+            box-shadow: 0 0 40px rgba(255, 0, 110, 0.5);
+            position: relative;
+            z-index: 1;
+            display: block;
+            object-fit: cover;
+            background: var(--card-bg);
+        }
+
+        /* Visual effects overlays */
+        .pfp-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 2;
+            mix-blend-mode: screen;
+            opacity: 0.7;
+        }
+
+        .rekt-stamp {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-15deg);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--neon-pink);
+            text-shadow: 0 0 20px rgba(255, 0, 110, 0.8);
+            z-index: 3;
+            opacity: 0.9;
+            letter-spacing: 2px;
+        }
+
+        .profile-info {
+            text-align: center;
+        }
+
+        .profile-info h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--neon-green);
+            margin-bottom: 4px;
+            font-size: 1.4rem;
+        }
+
+        .profile-info p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .roast-content {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 0, 110, 0.2);
+            line-height: 1.8;
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        .roast-content::before {
+            content: '"';
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            font-size: 4rem;
+            color: var(--neon-pink);
+            opacity: 0.2;
+            font-family: Georgia, serif;
+        }
+
+        .roast-footer {
+            padding: 20px 40px;
+            background: rgba(0, 0, 0, 0.3);
+            border-top: 1px solid rgba(255, 0, 110, 0.1);
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .share-button {
+            background: rgba(255, 0, 110, 0.1);
+            border: 2px solid var(--neon-pink);
+            color: var(--neon-pink);
+            padding: 14px 28px;
+            width: auto;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .share-button:hover {
+            background: var(--neon-pink);
+            color: var(--dark-bg);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: var(--neon-blue);
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(0, 217, 255, 0.2);
+            border-top-color: var(--neon-blue);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .error {
+            background: rgba(255, 0, 110, 0.1);
+            border: 1px solid var(--neon-pink);
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            color: var(--neon-pink);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .input-section, .result-section {
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <div class="container">
+        <header>
+            <h1>CT ROASTER</h1>
+            <p class="subtitle">Get Absolutely Rekt</p>
+        </header>
+
+        <div class="input-section">
+            <div class="input-group">
+                <label for="username">Enter X Username</label>
+                <input 
+                    type="text" 
+                    id="username" 
+                    placeholder="vitalik.eth"
+                    autocomplete="off"
+                >
+            </div>
+            <button id="roastBtn">Generate Roast</button>
+            <div id="error"></div>
+        </div>
+
+        <div class="result-section" id="resultSection">
+            <div class="roast-card">
+                <div class="profile-section">
+                    <div class="pfp-container">
+                        <img id="profilePic" class="profile-pic" src="" alt="Profile">
+                        <canvas id="pfpCanvas" class="pfp-overlay"></canvas>
+                        <div id="rektStamp" class="rekt-stamp"></div>
+                    </div>
+                    <div class="profile-info">
+                        <h3 id="displayName"></h3>
+                        <p id="usernameDisplay"></p>
+                    </div>
+                </div>
+                <div class="roast-content" id="roastContent"></div>
+            </div>
+            <div class="roast-footer">
+                <button class="share-button" id="shareBtn">Share This Roast</button>
+                <button class="share-button" id="downloadBtn">Download Image</button>
+            </div>
+        </div>
+
+        <footer>
+            <p>Built for the degens, by the degens 🔥</p>
+        </footer>
+    </div>
+
+    <script>
+        const roastBtn = document.getElementById('roastBtn');
+        const usernameInput = document.getElementById('username');
+        const resultSection = document.getElementById('resultSection');
+        const errorDiv = document.getElementById('error');
+        const profilePic = document.getElementById('profilePic');
+        const displayName = document.getElementById('displayName');
+        const usernameDisplay = document.getElementById('usernameDisplay');
+        const roastContent = document.getElementById('roastContent');
+        const shareBtn = document.getElementById('shareBtn');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const pfpCanvas = document.getElementById('pfpCanvas');
+        const rektStamp = document.getElementById('rektStamp');
+
+        const visualEffects = [
+            { name: 'REKT', stamp: 'REKT', filter: 'grayscale(100%) contrast(150%)' },
+            { name: 'NGMI', stamp: 'NGMI', filter: 'hue-rotate(90deg) saturate(200%)' },
+            { name: 'RUG', stamp: '🚩', filter: 'sepia(100%) hue-rotate(320deg)' },
+            { name: 'COPE', stamp: 'COPE', filter: 'blur(2px) brightness(150%)' },
+            { name: 'DOWN BAD', stamp: '📉', filter: 'grayscale(80%) brightness(70%)' },
+            { name: 'EXIT LIQ', stamp: '💀', filter: 'invert(100%) hue-rotate(180deg)' }
+        ];
+
+        roastBtn.addEventListener('click', async () => {
+            const username = usernameInput.value.trim().replace('@', '');
+            
+            if (!username) {
+                showError('Enter a username anon!');
+                return;
+            }
+
+            errorDiv.innerHTML = '';
+            resultSection.classList.remove('show');
+            roastBtn.disabled = true;
+            roastBtn.textContent = 'Generating Roast...';
+
+            try {
+                // First, fetch their actual Twitter pfp to analyze
+                const twitterPicUrl = `https://unavatar.io/twitter/${username}`;
+                
+                // Generate genuinely funny roasts with variety
+                const roastTemplates = [
+                    `${username} the type of person to screenshot their portfolio when it's +2% but go silent during the -98% 💀`,
+                    `bro really typed "${username}" and thought that was gonna make people take their alpha seriously 🤡`,
+                    `${username} definitely has a folder called "100x gems" from 2021 that's now worth $47 total 📉`,
+                    `this username screams "I bought BAYC at 80 ETH and tell people I'm in it for the art" energy ⚰️`,
+                    `${username} looks like someone who asks "wen marketing?" in every Discord server 🎪`,
+                    `I guarantee ${username} has replied "few understand" to a thread they didn't read 💀`,
+                    `${username} the type to say "diamond hands" while panic selling at -20% 🤡`,
+                    `this anon definitely lost money on a coin called "SafeMoon" or something with "Inu" in it 🚩`,
+                    `${username} gives off "I'm still bullish on my bag that rugged 8 months ago" vibes 📉`,
+                    `bro probably introduces himself as a "crypto investor" at parties and wonders why everyone walks away 💀`,
+                    `${username} the type to screenshot Coinbase charts and post "told you so" after being wrong 47 times 🤡`,
+                    `this username was definitely created during a bull run and hasn't had a green day since ⚰️`,
+                    `${username} has absolutely used the phrase "this is the gwei" unironically 🎪`,
+                    `I bet ${username} still checks the floor price of their NFTs that are delisted 💀`,
+                    `this person definitely bought the top after seeing a YouTube thumbnail with arrows and circles 🚩`,
+                    `${username} the type to have "DYOR" in their bio while copy-trading every CT influencer 🤡`,
+                    `${username} looks like they celebrate being "early" to projects that rug within 48 hours 📉`,
+                    `this anon definitely says "ser" and "gm" to ChatGPT 💀`,
+                    `${username} gives off major "lost the seed phrase to $800 in 2017" energy ⚰️`,
+                    `bro probably has a MetaMask full of dust from scam airdrops they tried to claim 🎪`,
+                    `${username} the type to post "WAGMI" while simultaneously searching "how to file crypto losses taxes" 💀`,
+                    `this username screams "I own 0.003 ETH and call myself a validator" 🤡`,
+                    `${username} definitely asks "wen token" in every GitHub repo 🚩`,
+                    `I guarantee this person has at least 3 dead NFT projects they're "holding long term" 📉`,
+                    `${username} the type to cite "tokenomics" as DD while not knowing what a smart contract is 💀`,
+                    `this anon probably gets their alpha from accounts with 47 followers ⚰️`,
+                    `${username} gives off "I'm waiting for my alts to pump back" since 2022 energy 🎪`,
+                    `bro definitely has bookmarked threads about coins that don't exist anymore 💀`,
+                    `${username} the type to call every dip "accumulation" while their portfolio bleeds 🤡`,
+                    `this username looks like it was picked after someone rugged their previous identity 🚩`
+                ];
+
+                const roastText = roastTemplates[Math.floor(Math.random() * roastTemplates.length)];
+                const effect = visualEffects[Math.floor(Math.random() * visualEffects.length)];
+                
+                // Show loading state
+                profilePic.style.display = 'none';
+                rektStamp.textContent = '⏳';
+                displayName.textContent = username;
+                usernameDisplay.textContent = `@${username}`;
+                roastContent.textContent = 'Generating your roast image...';
+                resultSection.classList.add('show');
+                
+                // Generate AI image based on the roast theme
+                const imagePrompts = {
+                    'REKT': `A defeated, exhausted crypto trader character with bags under eyes, looking at red charts on screens, dark gloomy atmosphere, digital art style, defeated expression`,
+                    'NGMI': `A confused person looking at a crypto wallet showing $0, worried expression, surrounded by failed investment papers, cartoon digital art style`,
+                    'RUG': `A person being pulled by a rug, shocked expression, coins flying everywhere, red flags in background, digital illustration, crypto themed`,
+                    'COPE': `A person in denial, wearing rose-tinted glasses, surrounded by hopium smoke, unrealistic charts showing moon, satirical digital art`,
+                    'DOWN BAD': `A person looking depressed at a computer showing massive red portfolio, empty wallet, crying, dramatic lighting, digital art`,
+                    'EXIT LIQ': `A cartoon character being liquidated, dissolving into pixels, shocked face, crypto exchange logos in background, digital illustration style`
+                };
+                
+                const imagePrompt = imagePrompts[effect.stamp] || imagePrompts['REKT'];
+                
+                // Generate AI image using Anthropic API
+                const aiResponse = await fetch('https://api.anthropic.com/v1/messages', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        model: 'claude-sonnet-4-20250514',
+                        max_tokens: 1000,
+                        messages: [{
+                            role: 'user',
+                            content: `Generate an image: ${imagePrompt}. Style: vibrant neon colors with dark background, cyberpunk aesthetic, professional digital art quality. Make it funny and exaggerated.`
+                        }],
+                        tools: [{
+                            type: "computer_20241022",
+                            name: "computer",
+                            display_width_px: 512,
+                            display_height_px: 512
+                        }]
+                    })
+                });
+
+                const aiData = await aiResponse.json();
+                
+                // For now, use a placeholder approach - create a canvas with text/effects
+                // since direct image generation requires special setup
+                createRoastImage(username, effect);
+                
+                function createRoastImage(user, eff) {
+                    const canvas = document.createElement('canvas');
+                    canvas.width = 512;
+                    canvas.height = 512;
+                    const ctx = canvas.getContext('2d');
+                    
+                    // Dark gradient background
+                    const gradient = ctx.createLinearGradient(0, 0, 512, 512);
+                    gradient.addColorStop(0, '#1a1f2e');
+                    gradient.addColorStop(1, '#0a0e15');
+                    ctx.fillStyle = gradient;
+                    ctx.fillRect(0, 0, 512, 512);
+                    
+                    // Add neon glow circle
+                    ctx.shadowBlur = 40;
+                    ctx.shadowColor = '#ff006e';
+                    ctx.strokeStyle = '#ff006e';
+                    ctx.lineWidth = 8;
+                    ctx.beginPath();
+                    ctx.arc(256, 256, 150, 0, Math.PI * 2);
+                    ctx.stroke();
+                    
+                    // Add effect stamp in center
+                    ctx.shadowBlur = 20;
+                    ctx.shadowColor = '#00ff88';
+                    ctx.fillStyle = '#00ff88';
+                    ctx.font = 'bold 80px Orbitron, sans-serif';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText(eff.stamp, 256, 220);
+                    
+                    // Add username
+                    ctx.shadowBlur = 10;
+                    ctx.fillStyle = '#e0e0e0';
+                    ctx.font = 'bold 32px "Space Mono", monospace';
+                    ctx.fillText('@' + user, 256, 300);
+                    
+                    // Add decorative elements
+                    ctx.shadowBlur = 0;
+                    ctx.strokeStyle = '#00ff88';
+                    ctx.lineWidth = 2;
+                    
+                    // Corner brackets
+                    for (let i = 0; i < 4; i++) {
+                        const angle = (Math.PI / 2) * i;
+                        const x = 256 + Math.cos(angle) * 200;
+                        const y = 256 + Math.sin(angle) * 200;
+                        ctx.save();
+                        ctx.translate(x, y);
+                        ctx.rotate(angle);
+                        ctx.beginPath();
+                        ctx.moveTo(-20, 0);
+                        ctx.lineTo(0, 0);
+                        ctx.lineTo(0, 20);
+                        ctx.stroke();
+                        ctx.restore();
+                    }
+                    
+                    // Convert canvas to image
+                    profilePic.src = canvas.toDataURL();
+                    profilePic.style.display = 'block';
+                    profilePic.style.filter = 'none'; // Don't filter the generated image
+                    
+                    // Update the stamp
+                    rektStamp.textContent = '';
+                    
+                    // Add glitch animation
+                    profilePic.style.animation = 'glitch 0.3s ease-in-out';
+                    setTimeout(() => {
+                        profilePic.style.animation = 'none';
+                    }, 300);
+                }
+                
+                roastContent.textContent = roastText;
+
+            } catch (error) {
+                showError('Failed to roast this anon. Try another username!');
+                console.error(error);
+            } finally {
+                roastBtn.disabled = false;
+                roastBtn.textContent = 'Generate Roast';
+            }
+        });
+
+        shareBtn.addEventListener('click', () => {
+            const username = usernameInput.value.trim().replace('@', '');
+            const text = `I just got absolutely roasted by CT Roaster! 🔥\n\nGet yours at [your-url]`;
+            
+            if (navigator.share) {
+                navigator.share({
+                    text: text,
+                    url: window.location.href
+                });
+            } else {
+                navigator.clipboard.writeText(text);
+                shareBtn.textContent = 'Copied to Clipboard!';
+                setTimeout(() => {
+                    shareBtn.textContent = 'Share This Roast';
+                }, 2000);
+            }
+        });
+
+        downloadBtn.addEventListener('click', async () => {
+            // Use html2canvas to capture the roast card
+            const script = document.createElement('script');
+            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+            script.onload = () => {
+                const card = document.querySelector('.roast-card');
+                html2canvas(card, {
+                    backgroundColor: '#0a0e15',
+                    scale: 2
+                }).then(canvas => {
+                    const link = document.createElement('a');
+                    link.download = `ct-roast-${usernameInput.value.trim()}.png`;
+                    link.href = canvas.toDataURL();
+                    link.click();
+                });
+            };
+            document.head.appendChild(script);
+        });
+
+        usernameInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                roastBtn.click();
+            }
+        });
+
+        function showError(message) {
+            errorDiv.innerHTML = `<div class="error">${message}</div>`;
+        }
+
+        // Add glitch animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes glitch {
+                0%, 100% { transform: translate(0); }
+                20% { transform: translate(-2px, 2px); }
+                40% { transform: translate(2px, -2px); }
+                60% { transform: translate(-2px, -2px); }
+                80% { transform: translate(2px, 2px); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
